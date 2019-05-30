@@ -1,8 +1,49 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './shopping-cart-table.css';
 
-const ShoppingCartTable = () => {
+const ShoppingCartTable = ({
+  items,
+  total,
+  onIncrease,
+  onDecrease,
+  onDelete,
+}) => {
+  const renderRow = ({ id, title, count, total }, idx) => {
+    return (
+      <tr key={id}>
+        <td>{idx + 1}</td>
+        <td>{title}</td>
+        <td>{count}</td>
+        <td>{total}</td>
+        <td>
+          <button
+            onClick={() => onDecrease(id)}
+            type="button"
+            className="btn btn-outline-warning btn-sm"
+          >
+            <i className="fa fa-minus-circle" />
+          </button>
+          <button
+            onClick={() => onIncrease(id)}
+            type="button"
+            className="btn btn-outline-success btn-sm"
+          >
+            <i className="fa fa-plus-circle" />
+          </button>
+          <button
+            onClick={() => onDelete(id)}
+            type="button"
+            className="btn btn-outline-danger btn-sm"
+          >
+            <i className="fa fa-trash-o" />
+          </button>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div className="shopping-cart-table">
       <h2>You Order</h2>
@@ -16,30 +57,36 @@ const ShoppingCartTable = () => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>name</td>
-            <td>2</td>
-            <td>$40</td>
-            <td>
-              <button type="button" className="btn btn-outline-danger btn-sm">
-                <i className="fa fa-trash-o" />
-              </button>
-              <button type="button" className="btn btn-outline-succes btn-sm">
-                <i className="fa fa-plus-circle" />
-              </button>
-              <button type="button" className="btn btn-outline-warning btn-sm">
-                <i className="fa fa-minus-circle" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{items.map(renderRow)}</tbody>
       </table>
 
-      <div className="total">Total: $201</div>
+      <div className="total">Total: ${total}</div>
     </div>
   );
 };
 
-export default ShoppingCartTable;
+const mapStateToProps = ({ cartItems, orderTotal }) => {
+  return {
+    items: cartItems,
+    total: orderTotal,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIncrease: id => {
+      console.log(`increase ${id}`);
+    },
+    onDecrease: id => {
+      console.log(`decrease ${id}`);
+    },
+    onDelete: id => {
+      console.log(`delete ${id}`);
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShoppingCartTable);

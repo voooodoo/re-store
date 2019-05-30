@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './error-indicator.css';
 
-const ErrorIndicator = () => {
-  return <div>Error</div>;
+const ErrorIndicator = ({ error }) => {
+  return <div>{error.message}</div>;
 };
 
-export default ErrorIndicator;
+const mapStateToProps = ({ error }) => {
+  return { error };
+};
+export default connect(mapStateToProps)(ErrorIndicator);
