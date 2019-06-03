@@ -5,24 +5,27 @@ export default class BookstoreService {
       title: 'Production-Ready Microservices',
       author: 'Susan J. Fowler',
       price: 32,
-      coverImage:
-        'https://images-na.ssl-images-amazon.com/images/I/41yJ75gpV-L._SX381_BO1,204,203,200_.jpg',
+      coverImage: 'https://images-na.ssl-images-amazon.com/images/I/41yJ75gpV-L._SX381_BO1,204,203,200_.jpg',
     },
     {
       id: 2,
       title: 'Release It!',
       author: 'Michael T. Nygard',
       price: 45,
-      coverImage:
-        'https://images-na.ssl-images-amazon.com/images/I/414CRjLjwgL._SX403_BO1,204,203,200_.jpg',
+      coverImage: 'https://images-na.ssl-images-amazon.com/images/I/414CRjLjwgL._SX403_BO1,204,203,200_.jpg',
+    },
+    {
+      id: 3,
+      title: 'IT, Programming & Computer science books',
+      author: 'Boboulos',
+      price: 14,
+      coverImage: 'https://images-na.ssl-images-amazon.com/images/I/414CRjLjwgL._SX403_BO1,204,203,200_.jpg',
     },
   ];
   getBooks() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        Math.random() < 0.75
-          ? resolve(this.data)
-          : reject(new Error('Some error'));
+        Math.random() < 0.75 ? resolve(this.data) : reject(new Error('Some error'));
       }, 500);
     });
   }

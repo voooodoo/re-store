@@ -1,42 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bookRemovedFromCart, allBookRemovedFromCart, bookAddedToCart } from '../../actions';
 
 import './shopping-cart-table.css';
 
-const ShoppingCartTable = ({
-  items,
-  total,
-  onIncrease,
-  onDecrease,
-  onDelete,
-}) => {
+const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
   const renderRow = ({ id, title, count, total }, idx) => {
     return (
       <tr key={id}>
         <td>{idx + 1}</td>
         <td>{title}</td>
         <td>{count}</td>
-        <td>{total}</td>
+        <td>${total}</td>
         <td>
-          <button
-            onClick={() => onDecrease(id)}
-            type="button"
-            className="btn btn-outline-warning btn-sm"
-          >
+          <button onClick={() => onDecrease(id)} type="button" className="btn btn-outline-warning btn-sm">
             <i className="fa fa-minus-circle" />
           </button>
-          <button
-            onClick={() => onIncrease(id)}
-            type="button"
-            className="btn btn-outline-success btn-sm"
-          >
+          <button onClick={() => onIncrease(id)} type="button" className="btn btn-outline-success btn-sm">
             <i className="fa fa-plus-circle" />
           </button>
-          <button
-            onClick={() => onDelete(id)}
-            type="button"
-            className="btn btn-outline-danger btn-sm"
-          >
+          <button onClick={() => onDelete(id)} type="button" className="btn btn-outline-danger btn-sm">
             <i className="fa fa-trash-o" />
           </button>
         </td>
@@ -65,25 +48,17 @@ const ShoppingCartTable = ({
   );
 };
 
-const mapStateToProps = ({ cartItems, orderTotal }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
   return {
     items: cartItems,
     total: orderTotal,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onIncrease: id => {
-      console.log(`increase ${id}`);
-    },
-    onDecrease: id => {
-      console.log(`decrease ${id}`);
-    },
-    onDelete: id => {
-      console.log(`delete ${id}`);
-    },
-  };
+const mapDispatchToProps = {
+  onIncrease: bookAddedToCart,
+  onDecrease: bookRemovedFromCart,
+  onDelete: allBookRemovedFromCart,
 };
 
 export default connect(

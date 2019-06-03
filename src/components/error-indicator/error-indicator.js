@@ -7,7 +7,7 @@ const ErrorIndicator = ({ error }) => {
   return <div>{error.message}</div>;
 };
 
-const mapStateToProps = ({ error }) => {
+const mapStateToProps = ({ bookList: { error } }) => {
   return { error };
 };
 export default connect(mapStateToProps)(ErrorIndicator);

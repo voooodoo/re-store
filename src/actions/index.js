@@ -18,6 +18,27 @@ const bookError = error => {
   };
 };
 
+const bookAddedToCart = bookId => {
+  return {
+    type: 'BOOK_ADDED_TO_CART',
+    payload: bookId,
+  };
+};
+
+const bookRemovedFromCart = bookId => {
+  return {
+    type: 'BOOK_REMOVED_FROM_CART',
+    payload: bookId,
+  };
+};
+
+const allBookRemovedFromCart = bookId => {
+  return {
+    type: 'ALL_BOOK_REMOVED_FROM_CART',
+    payload: bookId,
+  };
+};
+
 const fetchBooks = (bookstoreService, dispatch) => () => {
   dispatch(booksRequested());
   bookstoreService
@@ -30,4 +51,4 @@ const fetchBooks = (bookstoreService, dispatch) => () => {
     });
 };
 
-export { fetchBooks };
+export { fetchBooks, bookAddedToCart, bookRemovedFromCart, allBookRemovedFromCart };
